@@ -3,9 +3,40 @@
 #the board should be printed out every time a player makes a move.
 #You should be able to accept input of the player position and then place a symbol on the board.
 
+# from IPython.display import clear_output
+
+import os
+
+def getplayers():
+
+    while True: 
+            
+        print('Player 1: Do you wanna be X or O?')
+
+        players_xd = ['X','O']
+
+        players_xd[0] = input().upper()
+
+        if players_xd[0] == 'X':
+            print('Player 1 will go first with {}.'.format(players_xd[0]))
+            break
+        elif players_xd[0] == 'O':
+            players_xd[1] = 'X'
+            print('Player 1 will go first with {}.'.format(players_xd[0]))
+            break
+        else:
+            print('WFT X = equis ; O = es una o no cero')
+    
+    return players_xd
+
+
+
 
 def printmatrix (myshots):
     
+    #clear_output()
+    os.system('clear')
+
     print('     |     |     ')
     print('  {}  |  {}  |  {}  '.format(myshots[0],myshots[1],myshots[2]))
     print('     |     |     ')
@@ -19,45 +50,23 @@ def printmatrix (myshots):
     print('     |     |     ')
 
 
-def playnow():
 
-    print('Welcome to the real world!')
-
-    while True: 
-        
-        print('Player 1: Do you wanna be X or O?')
-
-        players = ['X','O']
-
-        players[0] = input().upper()
-
-        if players[0] == 'X':
-            print('Player 1 will go first with {}.'.format(players[0]))
-            break
-        elif players[0] == 'O':
-            players[1] = 'X'
-            print('Player 1 will go first with {}.'.format(players[0]))
-            break
-        else:
-            print('WFT X = equis ; O = es una o no cero')
-
-
-    input('Are you ready to play? Press Enter.').upper()
+def playnow(players):
 
     turns = 0
     myshots = [' ',' ',' ',' ',' ',' ',' ',' ',' ']
-
+    
     printmatrix(myshots)
 
     while True:
 
-        print('\nChoose your next position: (1-9)')
+        print('\nPlayer #{} Choose your next position: (1-9)'.format(turns+1))
 
         place = int(input())
 
         if place in range(1,10) and myshots[place-1] == ' ':
             myshots[place-1] = players[turns]
-
+            
             printmatrix(myshots)
 
             if turns == 0:
@@ -73,38 +82,52 @@ def playnow():
 
 
         if (myshots[0] == myshots[1] and myshots[1] == myshots[2] and myshots[1] != ' ') or (myshots[3] == myshots[4] and myshots[4] == myshots[5] and myshots[4] != ' ') or (myshots[6] == myshots[7] and myshots[7] == myshots[8] and myshots[7] != ' ') or (myshots[0] == myshots[3] and myshots[3] == myshots[6] and myshots[6] != ' ') or (myshots[1] == myshots[4] and myshots[4] == myshots[7] and myshots[4] != ' ') or (myshots[2] == myshots[5] and myshots[5] == myshots[8] and myshots[5] != ' ')  or (myshots[0] == myshots[4] and myshots[4] == myshots[8] and myshots[4] != ' '):
+            
+            printmatrix(myshots)
             if turns == 0:
-                print('\nPlayer 2 won!')
+
+                print('Congratulations Player 2! You have won the game!\n\n')
             else:
-                print('\nPlayer 1 won!')
+
+                print('Congratulations Player 1! You have won the game!\n\n')
             
             break
-        
+        elif myshots[0] != ' ' and myshots[1] != ' ' and myshots[2] != ' ' and myshots[3] != ' ' and myshots[4] != ' ' and myshots[5] != ' ' and myshots[6] != ' ' and myshots[7] != ' ' and myshots[8] != ' ':
+
+            printmatrix(myshots)
+            
+            print('\nThe game was Even!')
+            break
 
 
 
 
-    print('Congratulations! You have won the game!\n\n')
-
+os.system('clear')
+#clear_output()
     
+print('Welcome to the real world!')
 
-playagain = True
+players_chars = getplayers()
 
-while playagain == True:
+input('Are you ready to play? Press Enter.').upper()
+
+
+
+
+while True:
     
-    playnow()
+    playnow(players_chars)
     
     rplayagain = 'x'
 
     while rplayagain != 'yes' and rplayagain != 'no':
 
-        print('Do you wanna play again? Enter Yes or No:')
-
-        rplayagain = input().lower()
+        rplayagain = input('Do you wanna play again? Enter Yes or No:').lower()
 
         if rplayagain == 'no':
-            playagain = False
             print('\nBye!')
+            break
+    
         elif rplayagain != 'yes':
             print('\nPlease only Yes or No')
             continue
