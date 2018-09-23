@@ -13,6 +13,18 @@ def playernames():
 
     return playernames
 
+def playersturnchange(playernames):
+
+    p1tmp = playernames['player1']
+    playernames['player1'] = playernames['player2']
+    playernames['player2'] = p1tmp
+
+    p1sctmp = playernames['player1score']
+    playernames['player1score'] = playernames['player2score']
+    playernames['player2score'] = p1sctmp
+
+    return playernames
+
 
 def getplayers(playernames):
 
@@ -168,6 +180,12 @@ while rplayagain != 'no':
 
         if rplayagain != 'yes' and rplayagain != 'no':
             print('\nPlease only Yes or No')
+    
+    if rplayagain == 'yes':
+        player_names = playersturnchange(player_names)
+        os.system('clear')
+        print('\nReady, {} will go first with {}.'.format(player_names['player1'],players_chars[0]))
+        input('\nAre you ready to play?\nPress Enter.').upper()
     
         
 
