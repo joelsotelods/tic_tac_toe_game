@@ -98,6 +98,28 @@ def win_check(myshots,turns,playernames):
         return True
         
 
+def ask_for_move(turns, player_names):
+
+    if (turns == 0):
+        print('\n{} choose your next position: (1-9)'.format(player_names['player1']))
+    else:
+        print('\n{} choose your next position: (1-9)'.format(player_names['player2']))
+    
+    while True:
+        
+        try:
+            result = int(input())
+        except TypeError:
+            print('Only numbers between 1-9!!')
+        except ValueError:
+            print('Only numbers between 1-9!!')
+        else:
+            if result in range(1,10):
+                return result 
+            else:
+                print('Only numbers between 1-9!!')
+        
+    
 
 
 def playnow(players,player_names):
@@ -109,23 +131,7 @@ def playnow(players,player_names):
 
     while True:
 
-        if (turns == 0):
-            print('\n{} Choose your next position: (1-9)'.format(player_names['player1']))
-        else:
-            print('\n{} Choose your next position: (1-9)'.format(player_names['player2']))
-        
-        place = 0
-        
-        while True:
-            try:
-                place = int(input())   
-            except ValueError:
-                print('Only numbers between 1-9!!')
-            else:
-                if place in range(1,10):
-                    break 
-                else:
-                    print('Only numbers between 1-9!!')
+        place = ask_for_move(turns,player_names)
 
         if shotss[place-1] == ' ':
             shotss[place-1] = players[turns]
@@ -139,8 +145,6 @@ def playnow(players,player_names):
 
         else:
             print('Oliii!.. that cell is used')
-
-        
 
         if win_check(shotss,turns,player_names):
             break
@@ -169,14 +173,14 @@ while rplayagain != 'no':
     rplayagain = 'x'
 
     print('Scores:')
-    print('{}: {}'.format(player_names['player1'],player_names['player1score']))
-    print('{}: {}\n'.format(player_names['player2'],player_names['player2score']))
+    print('   {}: {}'.format(player_names['player1'],player_names['player1score']))
+    print('   {}: {}\n'.format(player_names['player2'],player_names['player2score']))
 
     while rplayagain != 'yes' and rplayagain != 'no':
 
 
 
-        rplayagain = input('Do you wanna play again? Enter Yes or No:').lower()
+        rplayagain = input('Do you wanna play again? Enter Yes or No: ').lower()
 
         if rplayagain != 'yes' and rplayagain != 'no':
             print('\nPlease only Yes or No')
