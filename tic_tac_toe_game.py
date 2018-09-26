@@ -84,10 +84,10 @@ def win_check(myshots,turns,playernames):
         printmatrix(myshots)
 
         if turns == 0:
-            print('Congratulations {}! You have won the game!\n\n'.format(playernames['player2']))
+            print('Congratulations {}! You have won the game!\n'.format(playernames['player2']))
             playernames['player2score'] += 1
         else:
-            print('Congratulations {}! You have won the game!\n\n'.format(playernames['player1']))
+            print('Congratulations {}! You have won the game!\n'.format(playernames['player1']))
             playernames['player1score'] += 1
             
         return True
